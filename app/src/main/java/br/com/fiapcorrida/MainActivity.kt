@@ -2,6 +2,7 @@ package br.com.fiapcorrida
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -75,15 +76,22 @@ class MainActivity: AppCompatActivity() {
 
     private suspend fun runRaceUntil(endTime: Long) {
         while (System.currentTimeMillis() < endTime) {
-//            val hourse1ProgressRemaing = 100 - binding.horse1Progress.progress
-//            val hourse2ProgressRemaing = 100 - binding.horse2Progress.progress
-//
-//            if (hourse1ProgressRemaing <= 20 && hourse2ProgressRemaing > 20) {
-//                horse1Progress = 100
-//            }
+            val hourse1ProgressRemaing = 100 - binding.horse1Progress.progress
+            val hourse2ProgressRemaing = 100 - binding.horse2Progress.progress
 
-            val horse1Progress = binding.horse1Progress.progress + random.nextInt(20)
-            val horse2Progress = binding.horse2Progress.progress + random.nextInt(20)
+            var horse1Progress = 0
+            var horse2Progress = 0
+
+            if ((hourse1ProgressRemaing <= 20 && (hourse1ProgressRemaing < hourse2ProgressRemaing)) )  {
+                horse1Progress = 100
+                binding.horse1Progress.progress = horse1Progress
+            } else if (hourse2ProgressRemaing <= 20 && (hourse2ProgressRemaing < hourse1ProgressRemaing)) {
+                horse2Progress = 100
+                binding.horse2Progress.progress = horse2Progress
+            } else {
+                horse1Progress = binding.horse1Progress.progress + random.nextInt(20)
+                horse2Progress = binding.horse2Progress.progress + random.nextInt(20)
+            }
 
 
             if (horse1Progress >= 100) {
