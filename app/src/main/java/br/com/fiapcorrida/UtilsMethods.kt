@@ -4,6 +4,7 @@ import android.view.TextureView
 import android.view.View
 import android.widget.TextView
 import br.com.fiapcorrida.databinding.ActivityMainBinding
+import com.google.android.material.progressindicator.LinearProgressIndicator
 import kotlinx.coroutines.Job
 
 class UtilsMethods() {
@@ -52,6 +53,17 @@ class UtilsMethods() {
         enableStopRaceButton(binding)
         text.text = mensagem
         text.visibility = View.VISIBLE
+    }
+
+    fun updateProgress(progressBar: LinearProgressIndicator, progress: Int) {
+        progressBar.progress = progress
+    }
+
+    fun getAndShowWinnerByProgress(binding: ActivityMainBinding): Int {
+        val horse1Progress = binding.horse1Progress.progress
+        val horse2Progress = binding.horse2Progress.progress
+
+        return if (horse1Progress > horse2Progress) 1 else 2
     }
 
 }

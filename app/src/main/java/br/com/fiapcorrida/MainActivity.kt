@@ -13,6 +13,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Random
+import kotlin.math.min
+import kotlin.math.max
 
 class MainActivity: AppCompatActivity() {
 
@@ -75,41 +77,30 @@ class MainActivity: AppCompatActivity() {
     }
 
     private suspend fun runRaceUntil(endTime: Long) {
+        val maxProgress = 100
+        val winningThreshold = 20
+
         while (System.currentTimeMillis() < endTime) {
-            val hourse1ProgressRemaing = 100 - binding.horse1Progress.progress
-            val hourse2ProgressRemaing = 100 - binding.horse2Progress.progress
+            val horse1Remaining = maxProgress - binding.horse1Progress.progress
+            val horse2Remaining = maxProgress - binding.horse2Progress.progress
 
-            var horse1Progress = 0
-            var horse2Progress = 0
-
-            if ((hourse1ProgressRemaing <= 20 && (hourse1ProgressRemaing < hourse2ProgressRemaing)) )  {
-                horse1Progress = 100
-                binding.horse1Progress.progress = horse1Progress
-            } else if (hourse2ProgressRemaing <= 20 && (hourse2ProgressRemaing < hourse1ProgressRemaing)) {
-                horse2Progress = 100
-                binding.horse2Progress.progress = horse2Progress
-            } else {
-                horse1Progress = binding.horse1Progress.progress + random.nextInt(20)
-                horse2Progress = binding.horse2Progress.progress + random.nextInt(20)
-            }
-
-            if (horse1Progress >= 100) {
+            if (horse1Remaining <= winningThreshold && horse1Remaining < horse2Remaining) {
+                raceUtils.updateProgress(binding.horse1Progress, maxProgress)
                 raceUtils.showWinner(getString(R.string.winner1), binding.winner1, binding)
                 return
-            } else if (horse2Progress >= 100) {
+            } else if (horse2Remaining <= winningThreshold && horse2Remaining < horse1Remaining) {
+                raceUtils.updateProgress(binding.horse2Progress, maxProgress)
                 raceUtils.showWinner(getString(R.string.winner2), binding.winner2, binding)
                 return
+            } else {
+                val horse1RandomProgress = binding.horse1Progress.progress + random.nextInt(20)
+                val horse2RandomProgress = binding.horse2Progress.progress + random.nextInt(20)
+                raceUtils.updateProgress(binding.horse1Progress, min(horse1RandomProgress, maxProgress))
+                raceUtils.updateProgress(binding.horse2Progress, min(horse2RandomProgress, maxProgress))
             }
-
-            updateHorseProgress(horse1Progress, horse2Progress)
 
             delay(1500)
         }
-    }
-
-    private fun updateHorseProgress(horse1Progress: Int, horse2Progress: Int) {
-        binding.horse1Progress.progress = horse1Progress.coerceAtMost(100)
-        binding.horse2Progress.progress = horse2Progress.coerceAtMost(100)
     }
 
 }
