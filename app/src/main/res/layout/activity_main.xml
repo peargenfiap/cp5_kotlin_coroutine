@@ -52,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/vermelho"
+        app:indicatorColor="@color/vermelho"
         app:layout_constraintTop_toBottomOf="@+id/horce_1_name"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/m_10"/>
@@ -72,6 +73,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/verde"
+        app:indicatorColor="@color/verde"
         app:layout_constraintTop_toBottomOf="@+id/horse_2_name"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/m_10"/>

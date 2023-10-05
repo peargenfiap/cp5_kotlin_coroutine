@@ -93,7 +93,6 @@ class MainActivity: AppCompatActivity() {
                 horse2Progress = binding.horse2Progress.progress + random.nextInt(20)
             }
 
-
             if (horse1Progress >= 100) {
                 raceUtils.showWinner(getString(R.string.winner1), binding.winner1, binding)
                 return
