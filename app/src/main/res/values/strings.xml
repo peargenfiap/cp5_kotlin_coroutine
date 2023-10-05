@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">PEDRO_ARGENTATI_RM88246</string>
+
+
+    <string name="race">Corrida de Cavalos</string>
+    <string name="start_race">Iniciar</string>
+    <string name="stop_race">Parar</string>
+
+    <!-- Cavalos -->
+    <string name="horse1">Cavalo Vermelho</string>
+    <string name="horse2">Cavalo Verde</string>
+
+    <!-- Vencedores -->
+    <string name="winner1">Cavalo Vermelho Venceu!</string>
+    <string name="winner2">Cavalo Verde Venceu!</string>
+
+
+    <string name="empty_string"></string>
+</resources>
