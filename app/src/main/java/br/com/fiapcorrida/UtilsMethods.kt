@@ -35,6 +35,7 @@ class UtilsMethods() {
     }
 
     fun stopRace(coroutine: Job?, binding: ActivityMainBinding) {
+        getAndShowWinnerByProgress(binding)
         coroutine?.cancel()
         enableStartRaceButton(binding)
     }
@@ -59,11 +60,16 @@ class UtilsMethods() {
         progressBar.progress = progress
     }
 
-    fun getAndShowWinnerByProgress(binding: ActivityMainBinding): Int {
+    fun getAndShowWinnerByProgress(binding: ActivityMainBinding) {
         val horse1Progress = binding.horse1Progress.progress
         val horse2Progress = binding.horse2Progress.progress
 
-        return if (horse1Progress > horse2Progress) 1 else 2
+        var winner = if (horse1Progress > horse2Progress) 1 else 2;
+        if (winner == 1) {
+            showWinner(binding.winner1.context.getString(R.string.winner1), binding.winner1, binding)
+        } else {
+            showWinner(binding.winner2.context.getString(R.string.winner2), binding.winner2, binding)
+        }
     }
 
 }
